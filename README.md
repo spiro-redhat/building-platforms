@@ -5,10 +5,10 @@ The [State of DevOps report 2023](https://www.puppet.com/resources/state-of-plat
 in the evolution of devops as a practice.  A significant finding was the emergence of the plaform or more specifically platform engineering. Platform 
 engineering can be generally considered as the development of a product aware infrastructure that provisions self service capbilities. Platform teams 
 continually adapt and evolve those services and enable stream aligned teams to access those capabilities in a frictionless and automated way. Teams 
-consuming the platform  are also aligned to the organisations vaule streams. The business outcome tends towards increased productivity through 
+consuming the platform  are also aligned to the organisations value streams. The business outcome tends towards increased productivity through 
 standardised practices, less duplication of work, better security and ultimately, a better quality product.  
 
-This blog demonstrates with exmaples how a self-serving encryption service may be incorporated as a platform service within your organisation or enterprise. The design goal is to address varied governance concerns across business units within the organsation through the imposition of boundaries that  isolate vaults from one another whilst remaining within the same overall deployment. By creating low resistance interaction between platform and stream aligned teams, the cognitive load of both is reduced therby permitting teams to focus on what matters most, the business.  
+This blog demonstrates with examples how a self-serving encryption service may be incorporated as a platform service within your organisation or enterprise. The design goal is to address varied governance concerns across business units within the organsation through the imposition of boundaries that  isolate vaults from one another whilst remaining within the same overall deployment. By creating low resistance interaction between platform and stream aligned teams, the cognitive load of both is reduced therby permitting teams to focus on what matters most, delivering value. 
 
 [Hashicorp Vault](https://www.hashicorp.com/products/vault) is the use case. The integration section below will show how it can be integrated into [OpenShift Container Platform](https://www.redhat.com/en/resources/red-hat-openshift-overview) from [Red Hat](https://redhat.com) to provide encryption as a service to your workloads. The examples in this article are for demonstrated purposes only and are in no way assuring relevance for any context. They should however be sufficiently adaptable to meet many businss scenarios. 
 
@@ -17,7 +17,7 @@ Enterprise Vault introduces a feature called namespaces, they provide a means to
 1) OCP - A namespace dedicated to workloads running in OpenShift. 
 2) Users - A namespace dedicated to users to store their own key value secrets. They will use the CubbyHole facility and no storage backends. This namespace would probably integrate with an enterprises' internal Identity Management Provider (IDP). 
 3) Legal - A namespace dedicated to users within a legal department. They could use a different or the same IDP as the User namespace. 
-4) Admin - The default namespace. Use this just for the root token to be stored and accessed as a break glass. No storage backends or auth methods are configured here.  
+4) Admin - The default namespace. Use this just for the root token to be stored and accessed as a break glass. No storage backends or auth methods are configured here therby reducing attack vectors and improving the overall security posture.  
 
 A basic nginx webserver will be used as an example deployment to demonstrate the integration with Vault. The app will use templates to create html files that can be mounted as files and made availble to the webserver. All the required files are available in this repository. Please fork the repository to make use of them.
 
