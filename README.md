@@ -18,7 +18,7 @@ Enterprise Vault introduces a feature called namespaces, they provide a means to
 2) Users - A namespace dedicated to users to store their own key value secrets. They will use the CubbyHole facility and no storage backends. This namespace would probably integrate with an enterprises' internal Identity Management Provider (IDP). 
 3) Legal - A namespace dedicated to users within a legal department. They could use a different or the same IDP as the User namespace. 
 
-A basic nginx webserver will be used as an example deployment to demonstrate the integration with Vault. The app will use templates to create html files that can be mounted as files and made availble to the webserver. All the required files are available in this repository. Please fork the repository to make use of them. 
+A basic nginx webserver will be used as an example deployment to demonstrate the integration with Vault. The app will use templates to create html files that can be mounted as files and made availble to the webserver. All the required files are available in this repository. Please fork the repository to make use of them. A more realistic use case for using the template approach would be to render an applicatin properties file and mount it to a path where a framework [like Spring Boot] would expect to find it. That's a little heavy weight for this purpose but the idea of rendering web pages to a location where a server is expecting to find them demonstrates the approach just fine.  
 
 To follow this you will need to the following: 
 
