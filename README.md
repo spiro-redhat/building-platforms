@@ -17,7 +17,7 @@ Enterprise Vault introduces a feature called namespaces, they provide a means to
 1) OCP - A namespace dedicated to workloads running in OpenShift. 
 2) Users - A namespace dedicated to users to store their own key value secrets. They will use the CubbyHole facility and no storage backends. This namespace would probably integrate with an enterprises' internal Identity Management Provider (IDP). 
 3) Legal - A namespace dedicated to users within a legal department. They could use a different or the same IDP as the User namespace. 
-4) Admin - The default namespace. Use this just for the root token to be stored and accessed as a break glass. We are not adding any storage backends or auth methods here.  
+4) Admin - The default namespace. Use this just for the root token to be stored and accessed as a break glass. No storage backends or auth methods are configured here.  
 
 A basic nginx webserver will be used as an example deployment to demonstrate the integration with Vault. The app will use templates to create html files that can be mounted as files and made availble to the webserver. All the required files are available in this repository. Please fork the repository to make use of them.
 
