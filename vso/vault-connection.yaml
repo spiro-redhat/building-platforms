@@ -1,0 +1,7 @@
+apiVersion: secrets.hashicorp.com/v1beta1 
+kind: VaultConnection 
+metadata: 
+   name: myapp-vault-connection 
+spec: 
+   address: https://vault-cluster-public-vault-5ba1a9a0.2a947fd4.z1.hashicorp.cloud:8200
+

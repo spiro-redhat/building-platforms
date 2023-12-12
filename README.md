@@ -3,7 +3,7 @@
 
 The [State of DevOps report 2023](https://www.puppet.com/resources/state-of-platform-engineering) from Puppet revealed some interesting developments 
 in the evolution of devops as a practice.  A significant finding was the emergence of the plaform or more specifically platform engineering. Platform 
-engineering can be generally considered as the development of a product aware infrastructure that provisions self service capbilities. Platform teams 
+engineering can be generally considered as the development of a product aware infrastructure that provisions self service capabilities. Platform teams 
 continually adapt and evolve those services and enable stream aligned teams to access those capabilities in a frictionless and automated way. Teams 
 consuming the platform  are also aligned to the organisations value streams. The business outcome tends towards increased productivity through 
 standardised practices, less duplication of work, better security and ultimately, a better quality product.  
