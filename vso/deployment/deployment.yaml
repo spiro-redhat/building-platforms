@@ -1,70 +1,70 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  creationTimestamp: null
   name: my-app-sa
 --- 
-apiVersion: v1 
+apiVersion: apps/v1 
 kind: Deployment 
 metaData: 
-   name: vso-demo 
-   labels: 
-      app: vso-demo 
-      mission-critical: no 
-spec: 
-   selector: 
+   name: vso-demo
+   labels:
+      app: vso-demo
+      mission-critical: no
+spec:
+   selector:
       matchLabels:
-         app: vso-demo     
-   template: 
-      metadata: 
+         app: vso-demo
+   template:
+      metadata:
         labels: 
-           app: vso-demo                                        
-   spec: 
-      serviceAccountName: my-app-sa 
-      containers: 
-         image: quay.io/spiro-redhat/vso:0.1 
-         imagePullPolicy: IfNotPresent
-         restartPolicy: Always
-         env: 
-            - name: vault-fruit
-              valueFrom: 
-                 secretKeyRef: 
-                   key: example-of-things
-                   name: fruit
-            - name: vault-animal
-              valueFrom: 
-                secretKeyRef: 
-                  key: example-of-things
-                  name: animal
-            - name: vault-name
-              valueFrom: 
-                secretKeyRef: 
-                  key: example-of-things
-                  name: name
-            - name: vault-drink
-              valueFrom: 
-                secretKeyRef: 
-                  key: example-of-things
-                  name: drink
-            - name: vault-colour
-              valueFrom: 
-                secretKeyRef: 
-                  key: example-of-things
-                  name: colour
-            - name: vault-clothing
-              valueFrom: 
-                secretKeyRef: 
-                  key: example-of-things
-                  name: clothing
-            - name: vault-team
-              valueFrom: 
-                secretKeyRef: 
-                  key: example-of-things
-                  name: team
-         resources:
-           requests: 
-               cpu: 200m 
-               memory: 32Mi 
-           limits: 
-               cpu: 400m 
-               memory: 128Mi 
+           app: vso-demo
+      spec:
+        serviceAccountName: my-app-sa
+        containers:
+         - image: quay.io/spiro-redhat/vso:0.1
+           name: vso-demo
+           imagePullPolicy: IfNotPresent
+           restartPolicy: Always
+           env:
+              - name: vault-fruit
+                valueFrom:
+                  secretKeyRef:
+                    key: example-of-things
+                    name: fruit
+              - name: vault-animal
+                valueFrom:
+                  secretKeyRef:
+                    key: example-of-things
+                    name: animal
+              - name: vault-name
+                valueFrom:
+                  secretKeyRef:
+                    key: example-of-things
+                    name: name
+              - name: vault-drink
+                valueFrom:
+                  secretKeyRef:
+                    key: example-of-things
+                    name: drink
+              - name: vault-colour
+                valueFrom:
+                  secretKeyRef:
+                    key: example-of-things
+                    name: colour
+              - name: vault-clothing
+                valueFrom:
+                  secretKeyRef:
+                    key: example-of-things
+                    name: clothing
+              - name: vault-team
+                valueFrom:
+                  secretKeyRef:
+                    key: example-of-things
+                    name: team
+           resources:
+              requests:
+                  cpu: 200m
+                  memory: 32Mi
+              limits:
+                  cpu: 400m
+                  memory: 128Mi

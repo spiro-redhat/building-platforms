@@ -1,5 +1,7 @@
 #Vault Secrets Operator (VSO) 
 
+![VSO arch](../img/vso/vso-arch.png) 
+
 #Vault CLI config 
 
 Ensure that you have the Vault CLI installed and that you connect to the Vault server. Set up the following environment variables.
@@ -99,4 +101,4 @@ The Kubenetes API resources offered by the VSO now need to be configured.
 
 
  
- 
+
