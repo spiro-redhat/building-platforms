@@ -1,17 +1,17 @@
 # Vault Secrets Operator (VSO) 
-The Vault Secrets Operator (VSO) provides manages the life cycle of native kubernetes secrets whose values are obtained from HashiCorp Vault. VSO will synchronise secrets between Vault and Kubernetes without any prior knowledge of Vault being required. 
+The Vault Secrets Operator (VSO) will manage the life cycle of native kubernetes secrets whose values are obtained from HashiCorp Vault. VSO will synchronise secrets between Vault and Kubernetes without any prior knowledge of Vault being required. 
 
 ![VSO arch](../img/vso/vso-arch.png) 
 
 To use the VSO, we will neeed to ensure that the Vault operator is installed an configured. We will therefore repeat some of the steps described in [installing the Vault operator guide](../README.md)
 
-![Install the vault agent in OpenShift](img/one.png)  *Install the Vault Agent in OpenShift* 
+![Install the vault agent in OpenShift](...img/one.png)  *Install the Vault Agent in OpenShift* 
 
-Refer to the [install agent guide](install-agent.md) in this repository  
+Refer to the [install agent guide](../install-agent.md) in this repository  
 
 
 
-![Setting up the Kubernetes Auth method](img/two.png)  *Setting up the Kubernetes Auth method*
+![Setting up the Kubernetes Auth method](../img/two.png)  *Setting up the Kubernetes Auth method*
 
 (i) Enable the Kubernetes Auth engine in Vault. Use the Vault CLI. 
 
@@ -55,7 +55,7 @@ export KUBE_HOST=$(oc config view --raw --minify --flatten --output 'jsonpath={.
 
 
 ```
-$ vault write auth/kubernetes/config \
+vault write auth/kubernetes/config \
      token_reviewer_jwt="$JWT_TOKEN" \
      kubernetes_host="$KUBE_HOST" \
      kubernetes_ca_cert="$KUBE_CA_CRT" 
@@ -64,34 +64,34 @@ $ vault write auth/kubernetes/config \
 (vi) Verify the config. Use the Vault CLI
 
 ```
-$ vault read auth/kubernetes/config
+vault read auth/kubernetes/config
 ```
 
-![Creating secrets](img/three.png) *Create the secrets* 
+![Creating secrets](../img/three.png) *Create the secrets* 
 
 
 
 (i) Enable the kv2 secrets engine. Use the Vault CLI 
 
 ```
-$ vault secrets enable -path=secrets kv-v2
+vault secrets enable -path=secrets kv-v2
 ```
 
 
 ```
 (ii) Write a  secret  to the vault. This will represent content for our app. (Vault CLI).
 ```
-$ vault kv put secrets/my-app/examples-of-things  fruit="apple" animal="cat" name="fred" drink="beer" colour="red" clothing="hat" team="arsenal"  
+vault kv put secrets/my-app/examples-of-things  fruit="apple" animal="cat" name="fred" drink="beer" colour="red" clothing="hat" team="arsenal"  
 ```
 (iii) Verify the secrets (Vault CLI). 
 ```
-$ vault kv get secrets/my-app/examples-of-things 
+vault kv get secrets/my-app/examples-of-things 
 ```
 
 ![Create a policy](../img/four.png)  Create a Policy 
 (i) Create a policy that defines access to the secret. (Vault CLI) 
 ```
-$ vault policy write my-app-secrets - <<EOF
+vault policy write my-app-secrets - <<EOF
 path "secrets/data/my-app/*" {
   capabilities = ["read" , "list"]
 }
@@ -102,13 +102,13 @@ EOF
 
 
 
-![Create a role](img/five.png) *Create a role*  
+![Create a role](../img/five.png) *Create a role*  
 
 (i) A role associates a `ServiceAccount` and `NameSpaces` to a policy. Use the Vault CLI. 
 
 
 ```
-$ vault write auth/kubernetes/role/my-app \
+vault write auth/kubernetes/role/my-app \
     bound_service_account_names=hello-world-app \
     bound_service_account_namespaces=hello-world \
     policies=my-app-secrets \
@@ -124,17 +124,17 @@ Ensure that you have the Vault CLI installed and that you connect to the Vault s
 
 
 ```
-$ export VAULT_ADDR="https://your-vault-address:8200"
-$ export VAULT_TOKEN="the-token"
+export VAULT_ADDR="https://your-vault-address:8200"
+export VAULT_TOKEN="the-token"
 ```
 
-Check the connection is working using: `$ vault status` 
+Check the connection is working using: `vault status` 
 We need the JWT  token of the `ServiceAccount` that runs  the VSO controller deployment. 
 The token will have a unique name so we need to query the `ServiceAccount` to find out what it is. In this instance it is: vault-secrets-operator-controller-manager-token-xdfzg
 
    
 ```
-$ oc describe  sa vault-secrets-operator-controller-manager   -n openshift-operators  
+oc describe  sa vault-secrets-operator-controller-manager   -n openshift-operators  
 Name:                vault-secrets-operator-controller-manager
 Namespace:           openshift-operators
 Labels:              operators.coreos.com/vault-secrets-operator.openshift-operators=
@@ -147,20 +147,20 @@ Events:              <none>
 Store the token as an Environment variable.
   
 ```
-$ export JWT_TOKEN=$(oc get secret vault-secrets-operator-controller-manager-token-xdfzg  -n openshift-operators -o jsonpath='{.data.token}' | base64 -d)
+export JWT_TOKEN=$(oc get secret vault-secrets-operator-controller-manager-token-xdfzg  -n openshift-operators -o jsonpath='{.data.token}' | base64 -d)
 
 ``` 
 
 Enable the Hashicorp Vault kubernetes [authentication] engine. 
 
 ```
-$ vault auth enable kubernetes
+vault auth enable kubernetes
 ```
 And create an AuthConfig in Vault using values from earlier. 
 ```
-$ export KUBE_CA_CRT=$(oc get cm kube-root-ca.crt -n openshift-config -o jsonpath='{.data.ca\.crt}')   
-$ export KUBE_HOST=$(oc config view --raw --minify --flatten --output 'jsonpath={.clusters[].cluster.server}')
-$ vault write auth/kubernetes/config \                                                                 
+export KUBE_CA_CRT=$(oc get cm kube-root-ca.crt -n openshift-config -o jsonpath='{.data.ca\.crt}')   
+export KUBE_HOST=$(oc config view --raw --minify --flatten --output 'jsonpath={.clusters[].cluster.server}')
+vault write auth/kubernetes/config \                                                                 
      token_reviewer_jwt="$JWT_TOKEN" \
      kubernetes_host="$KUBE_HOST" \
      kubernetes_ca_cert="$KUBE_CA_CRT"
