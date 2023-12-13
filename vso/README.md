@@ -131,5 +131,4 @@ The Kubenetes API resources offered by the VSO now need to be configured.
 (iii) VaultStaticSecret - Defines the SOURCE path within Vault holding the secret data. It also defines the DESTINATION of the `Secret` within OpenShift (see vault-static-secret.yaml).  The kubernetes `Secret` (the DESTINATION) will be managed directly from this `VaultStaticSecret` object. Any updates to deletions to the SOURCE in Vault will be reflected in the secret automatically.  This file will be unique to an environment and more likely to exist within an 'overlays' folder in `Kustomize`.  
 
 
- 
-
+![VSO crd](../img/vso/vso-crd.png) 
