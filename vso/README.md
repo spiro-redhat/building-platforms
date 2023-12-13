@@ -1,4 +1,4 @@
-#Vault Secrets Operator (VSO) 
+# Vault Secrets Operator (VSO) 
 The Vault Secrets Operator (VSO) provides manages the life cycle of native kubernetes secrets whose values are obtained from HashiCorp Vault. VSO will synchronise secrets between Vault and Kubernetes without any prior knowledge of Vault being required. 
 
 ![VSO arch](../img/vso/vso-arch.png) 
@@ -118,7 +118,7 @@ $ vault write auth/kubernetes/role/my-app \
 
 =============================
 
-#Vault CLI config 
+# Vault CLI config 
 
 Ensure that you have the Vault CLI installed and that you connect to the Vault server. Set up the following environment variables.
 
